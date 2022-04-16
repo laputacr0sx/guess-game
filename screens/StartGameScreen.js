@@ -1,18 +1,50 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native';
-import React from 'react';
+import { StyleSheet, View, TextInput, Alert } from 'react-native';
+import React, { useState } from 'react';
 
 import PrimaryButton from '../components/PrimaryButton';
 
-function StartGameScreen() {
+function StartGameScreen({ onPickNumber }) {
+	const [enteredNumber, setEnteredNumber] = useState('');
+
+	function numberInputHandler(enteredText) {
+		setEnteredNumber(enteredText);
+	}
+
+	function resetInputHandler() {
+		setEnteredNumber('');
+	}
+
+	function confirmInputHandler() {
+		const chosenNumber = parseInt(enteredNumber);
+		if (isNaN(chosenNumber) || chosenNumber < 1 || chosenNumber > 99) {
+			Alert.alert(
+				'Invlid Input from player',
+				'Input has to be a number between 1 and 99',
+				[{ text: 'Okay', style: 'destructive', onPress: resetInputHandler }]
+			);
+			return;
+		}
+
+		onPickNumber(chosenNumber);
+	}
+
 	return (
-		<View style={styles.inputContainer}>
+		<View style={styles.interactiveContainer}>
 			<TextInput
 				style={styles.inputText}
 				maxLength={2}
 				keyboardType={'number-pad'}
+				value={enteredNumber}
+				onChangeText={numberInputHandler}
 			/>
-			<PrimaryButton>Reset</PrimaryButton>
-			<PrimaryButton>Cofirm</PrimaryButton>
+			<View style={styles.buttonsContainer}>
+				<View style={styles.buttonContainer}>
+					<PrimaryButton onPress={confirmInputHandler}>Cofirm</PrimaryButton>
+				</View>
+				<View style={styles.buttonContainer}>
+					<PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
+				</View>
+			</View>
 		</View>
 	);
 }
@@ -20,7 +52,8 @@ function StartGameScreen() {
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
-	inputContainer: {
+	interactiveContainer: {
+		alignItems: 'center',
 		marginHorizontal: 24,
 		borderRadius: 8,
 		padding: 18,
@@ -31,11 +64,11 @@ const styles = StyleSheet.create({
 		shadowColor: 'black',
 		shadowOffset: { width: 10, height: 10 },
 		shadowRadius: 10,
-		shadowOpacity: 0.22,
+		shadowOpacity: 0.25,
 	},
 	inputText: {
 		height: 50,
-		width: 50,
+		width: 60,
 		fontSize: 32,
 		borderColor: '#5e002b',
 		borderBottomColor: '#ddb52f',
@@ -45,6 +78,11 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		textAlign: 'center',
 	},
+	buttonsContainer: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+	},
+	buttonContainer: { flex: 1 },
 });
 
 /*
@@ -56,8 +94,8 @@ const styles = StyleSheet.create({
 #3e0012
 
 #430017
-#a73f67
 #74063d
+#a73f67
 #06743d
 #004715
 
