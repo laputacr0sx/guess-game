@@ -1,11 +1,12 @@
-import { StyleSheet, View, Alert } from 'react-native';
+import { StyleSheet, View, Alert, Text, FlatList } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
 import NumberContainer from '../components/game/NumberContainer';
 import Title from '../components/ui/Title';
-import PrimaryButton from '../components/ui/PrimaryButton';
 import Card from '../components/ui/Card';
+import PrimaryButton from '../components/ui/PrimaryButton';
 import InstructionText from '../components/ui/InstructionText';
+import GuessLogItem from '../components/game/GuessLogItem';
 
 import { Feather } from '@expo/vector-icons';
 import { accentColors } from '../constants/colors';
@@ -25,14 +26,18 @@ let maxBoundary = 100;
 
 function GameScreen({ userNumber, onGameOver }) {
 	const initialGuess = generateRandomBetween(1, 100, userNumber);
-
 	const [currentGuess, setCurrentGuess] = useState(initialGuess);
+	const [guessRounds, setGuessRounds] = useState([initialGuess]);
 
 	useEffect(() => {
 		if (currentGuess === userNumber) {
-			onGameOver();
+			onGameOver(guessRounds.length);
 		}
 	}, [currentGuess, userNumber, onGameOver]);
+
+	useEffect(() => {
+		(minBoundary = 1), (maxBoundary = 100);
+	}, []);
 
 	function nextGuesshandler(direction) {
 		if (
@@ -55,7 +60,10 @@ function GameScreen({ userNumber, onGameOver }) {
 			currentGuess
 		);
 		setCurrentGuess(newRndNumber);
+		setGuessRounds((prevGuessRounds) => [newRndNumber, ...prevGuessRounds]);
 	}
+
+	const guessRoundsListLength = guessRounds.length;
 
 	return (
 		<View style={styles.screen}>
@@ -78,7 +86,20 @@ function GameScreen({ userNumber, onGameOver }) {
 					</View>
 				</View>
 			</Card>
-			{/* <View>LOG ROUNDS</View> */}
+			<View style={styles.listContainer}>
+				<FlatList
+					data={guessRounds}
+					renderItem={({ item, index }) => (
+						<GuessLogItem
+							roundNumber={guessRoundsListLength - index}
+							guess={item}
+						/>
+					)}
+					keyExtractor={(item) => {
+						return item;
+					}}
+				/>
+			</View>
 		</View>
 	);
 }
@@ -96,4 +117,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	buttonContainer: { flex: 1 },
+	listContainer: {
+		flex: 1,
+		padding: 16,
+	},
 });

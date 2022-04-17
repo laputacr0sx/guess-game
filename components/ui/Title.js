@@ -3,10 +3,10 @@ import React from 'react';
 
 import { Green } from '../../constants/colors';
 
-const Title = ({ children }) => {
+const Title = ({ children, style }) => {
 	return (
 		<View>
-			<Text style={styles.title}>{children}</Text>
+			<Text style={[styles.title, style]}>{children}</Text>
 		</View>
 	);
 };
