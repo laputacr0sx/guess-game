@@ -1,7 +1,12 @@
 import { StyleSheet, View, TextInput, Alert } from 'react-native';
 import React, { useState } from 'react';
 
-import PrimaryButton from '../components/PrimaryButton';
+import PrimaryButton from '../components/ui/PrimaryButton';
+import Title from '../components/ui/Title';
+import Card from '../components/ui/Card';
+import InstructionText from '../components/ui/InstructionText';
+
+import { plumpColors, accentColors } from '../constants/colors';
 
 function StartGameScreen({ onPickNumber }) {
 	const [enteredNumber, setEnteredNumber] = useState('');
@@ -29,22 +34,26 @@ function StartGameScreen({ onPickNumber }) {
 	}
 
 	return (
-		<View style={styles.interactiveContainer}>
-			<TextInput
-				style={styles.inputText}
-				maxLength={2}
-				keyboardType={'number-pad'}
-				value={enteredNumber}
-				onChangeText={numberInputHandler}
-			/>
-			<View style={styles.buttonsContainer}>
-				<View style={styles.buttonContainer}>
-					<PrimaryButton onPress={confirmInputHandler}>Cofirm</PrimaryButton>
+		<View style={styles.rootContainer}>
+			<Title>Guess My Number</Title>
+			<Card>
+				<InstructionText>Enter a Number</InstructionText>
+				<TextInput
+					style={styles.inputText}
+					maxLength={2}
+					keyboardType={'number-pad'}
+					value={enteredNumber}
+					onChangeText={numberInputHandler}
+				/>
+				<View style={styles.buttonsContainer}>
+					<View style={styles.buttonContainer}>
+						<PrimaryButton onPress={confirmInputHandler}>Cofirm</PrimaryButton>
+					</View>
+					<View style={styles.buttonContainer}>
+						<PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
+					</View>
 				</View>
-				<View style={styles.buttonContainer}>
-					<PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
-				</View>
-			</View>
+			</Card>
 		</View>
 	);
 }
@@ -52,28 +61,19 @@ function StartGameScreen({ onPickNumber }) {
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
-	interactiveContainer: {
-		alignItems: 'center',
-		marginHorizontal: 24,
-		borderRadius: 8,
-		padding: 18,
+	rootContainer: {
+		flex: 1,
 		marginTop: 100,
-		backgroundColor: '#5e002b',
-		elevation: 4,
-		// adding shadow around a view
-		shadowColor: 'black',
-		shadowOffset: { width: 10, height: 10 },
-		shadowRadius: 10,
-		shadowOpacity: 0.25,
+		alignItems: 'center',
 	},
 	inputText: {
 		height: 50,
 		width: 60,
 		fontSize: 32,
-		borderColor: '#5e002b',
-		borderBottomColor: '#ddb52f',
+		borderColor: plumpColors.primary300,
+		borderBottomColor: accentColors.accent300,
 		borderWidth: 2,
-		color: '#ddb52f',
+		color: accentColors.accent300,
 		marginVertical: 9,
 		fontWeight: 'bold',
 		textAlign: 'center',
@@ -86,24 +86,7 @@ const styles = StyleSheet.create({
 });
 
 /*
-#74063d
-#690034
-#5e002b
-#530023
-#48001b
-#3e0012
 
-#430017
-#74063d
-#a73f67
-#06743d
-#004715
 
-#a12b07
-#c76e14
-#ddb531
-#d6db59
-#c0dc7f
-#bcdfa2
 
 */
