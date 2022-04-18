@@ -17,10 +17,12 @@ const styles = StyleSheet.create({
 	title: {
 		fontFamily: 'open-sans-bold',
 		fontSize: 26,
-		color: Green.Green000,
+		color: Green.Green800,
 		textAlign: 'center',
 		borderWidth: 2,
-		borderColor: Green.Green000,
-		padding: 14,
+		borderColor: Green.Green800,
+		padding: 12,
+		maxWidth: '80%',
+		width: 300,
 	},
 });

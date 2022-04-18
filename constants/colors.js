@@ -39,13 +39,13 @@ export const Orange = {
 
 /* Array */
 export const Green = {
-	Green000: '#d8f3dc',
-	Green100: '#b7e4c7',
-	Green200: '#95d5b2',
-	Green300: '#74c69d',
+	Green000: '#081c15',
+	Green100: '#1b4332',
+	Green200: '#2d6a4f',
+	Green300: '#40916c',
 	Green400: '#52b788',
-	Green500: '#40916c',
-	Green600: '#2d6a4f',
-	Green700: '#1b4332',
-	Green800: '#081c15',
+	Green500: '#74c69d',
+	Green600: '#95d5b2',
+	Green700: '#b7e4c7',
+	Green800: '#d8f3dc',
 };

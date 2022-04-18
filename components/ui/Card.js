@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Dimensions } from 'react-native';
 import React from 'react';
 
 import { plumpColors, accentColors } from '../../constants/colors';
@@ -9,13 +9,15 @@ function Card({ children }) {
 
 export default Card;
 
+const deviceWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
 	card: {
 		alignItems: 'center',
 		marginHorizontal: 24,
 		borderRadius: 8,
 		padding: 18,
-		marginTop: 36,
+		marginTop: deviceWidth < 240 ? 18 : 36,
 		backgroundColor: plumpColors.primary300,
 		elevation: 4,
 
