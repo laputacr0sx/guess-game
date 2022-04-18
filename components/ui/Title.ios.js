@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Platform } from 'react-native';
 import React from 'react';
 
 import { Green } from '../../constants/colors';
@@ -19,8 +19,6 @@ const styles = StyleSheet.create({
 		fontSize: 26,
 		color: Green.Green800,
 		textAlign: 'center',
-		borderWidth: 2,
-		borderColor: Green.Green800,
 		padding: 12,
 		maxWidth: '80%',
 		width: 300,
